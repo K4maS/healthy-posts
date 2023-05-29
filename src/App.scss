@@ -1,0 +1,40 @@
+@import './normolize.css';
+@import "~bootstrap/scss/bootstrap";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a, Link {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  min-width: 320px;
+  // font-family: 'Montserrat', sans-serif;
+  // font-weight: 400;
+}
+
+/* globe */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.btn-reset {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
