@@ -26,6 +26,7 @@ body {
   // font-weight: 400;
 }
 
+
 /* globe */
 ul {
   margin: 0;
@@ -37,4 +38,8 @@ ul {
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+
+.overfolw-hidden {
+  overflow: hidden;
 }

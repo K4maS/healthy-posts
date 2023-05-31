@@ -27,13 +27,14 @@ class Header extends React.Component {
                         </Link>
 
                     </IconContext.Provider>
-
+                    {this.state.menuIsActive && <div className='header__blackout' onClick={this.closeMenu} ></div>}
                     <nav className='header__nav nav'>
                         <button className='nav__burger burger btn-reset' onClick={() => { this.setState({ menuIsActive: true }) }}>
                             <span className='burger__line'></span>
                             <span className='burger__line'></span>
                             <span className='burger__line'></span>
                         </button>
+
                         {this.state.menuIsActive && <NavMenuModule onClose={this.closeMenu} />}
                     </nav>
                 </div>
