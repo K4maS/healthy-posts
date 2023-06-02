@@ -1,31 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
 import React from "react";
 import PostsListItem from "../../components/PostsListItem/PostsListItem";
-import { getPosts, updatePageLoaded } from "../../store/toolkitSllice";
+import { getPosts, getUsers, updatePageLoaded } from "../../store/toolkitSllice";
 
 
 
 function PostsListPage() {
-
     const dispath = useDispatch();
     const posts = useSelector((state) => state.toolkit.posts)
+    const users = useSelector((state) => state.toolkit.users)
     const pageLoaded = useSelector((state) => state.toolkit.pageLoaded)
-
-    console.log(pageLoaded)
+    const userById = (userId) => {
+        return users.find((user) => user.id === userId)
+    }
+    // Список постов будет загружаться при обновлении страницы 
     if (!pageLoaded) {
         dispath(getPosts())
+        dispath(getUsers())
         dispath(updatePageLoaded(true))
     }
-
     return (
 
         < section className='posts' >
 
             <div className='container'>
-                <h1 className="posts__title">Posts list</h1>
+
+                <h1 className="posts__title">Посты</h1>
                 {posts.length > 0 ?
                     <div className="posts__block">
-                        {posts.map((post) => <PostsListItem post={post} key={post.id} />)}
+                        {posts.map((post) => <PostsListItem user={userById(post.userId) } post={post} key={post.id} />)}
                     </div>
                     :
                     <div className="posts__block">

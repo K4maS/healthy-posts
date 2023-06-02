@@ -1,19 +1,35 @@
 import React from 'react';
+import CommentsListItem from '../../components/CommentsListItem/CommentsListItem';
+import { useSelector } from 'react-redux';
+
 
 function PostCommentsModule(props) {
+    const comments = useSelector(state => state.toolkit.comments);
+    const commentsLoaded = useSelector(state => state.toolkit.commentsLoaded);
+    const currentComments = comments.filter((elem) => elem.postId === props.id);
     return (
-        <div className="card mb-3" style={{ maxWidth: '100%' }}>
 
-            <div className="row g-0">
-                <div className="col-md-8">
-                    <div className="card-body">
-                        <h5 className="card-title">Комментарии</h5>
-                        <h6 className="card-title">email</h6>
-                        <p className="card-text">body</p>
-                        <p className="card-text"><small className="text-body-secondary">id: </small></p>
+        <div className="card mb-3 mx-3" style={{ maxWidth: '100%' }}>
+            {currentComments.length > 0 ?
+                <div className="row g-0">
+                    <div className="">
+                        {
+                            currentComments.map((comment) => <CommentsListItem comment={comment} key={comment.id} />)
+                        }
+
                     </div>
                 </div>
-            </div>
+                :
+                <div className="row g-0">
+                    {commentsLoaded ?
+                        <h4 className="card-title">Нет комментариев</h4>
+                        :
+                        <h4 className="card-title">Загрузка...</h4>
+                    }
+
+                </div>
+            }
+
         </div>
     );
 }
