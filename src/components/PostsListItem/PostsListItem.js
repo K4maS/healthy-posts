@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import PostCommentsModule from '../../modules/PostCommentsModule/PostCommentsModule';
 import { Link } from 'react-router-dom';
-import { openCommentsForPost, getComments, closeCommentsForPost, updateCommentsLoaded } from '../../store/toolkitSllice';
+import { openCommentsForPost, getComments, closeCommentsForPost, updateCommentsLoaded, updatePageLoaded } from '../../store/toolkitSllice';
 
 function PostsListItem(props) {
     const dispath = useDispatch();
@@ -30,7 +30,15 @@ function PostsListItem(props) {
         <div className="card mb-3" style={{ maxWidth: '100%' }}>
             <div className="row g-0">
                 <div className="col-md-3 col-lg-2">
-                    {props.user && <Link to={`/user/${props.post.userId}`}>
+                    {props.user && <Link to={`/user/${props.post.userId}`}
+                        onClick={() => {
+                            dispath(updatePageLoaded(false));
+                            window.scrollTo({
+                                top: 0,
+                                behavior: "smooth"
+                            });
+                        }}
+                    >
                         <img src={props.user.avatar} className="img-fluid" alt="avatar"
                             style={{ maxWidth: '150px', borderRadius: '100%', padding: '16px' }} />
                         <p className="card-text mx-3">{props.user.username}</p>
