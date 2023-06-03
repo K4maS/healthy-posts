@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiActivity } from "react-icons/fi";
+import { FiActivity, FiX } from "react-icons/fi";
 import { IconContext } from 'react-icons';
 import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
@@ -27,6 +27,11 @@ class Header extends React.Component {
                         </Link>
 
                     </IconContext.Provider>
+                    <div className='header__search-block'>
+                        <input type='search' className="form-control header__search" />
+                        <button className='header__search-clear'> <FiX /></button>
+                    </div>
+
                     {this.state.menuIsActive && <div className='header__blackout' onClick={this.closeMenu} ></div>}
                     <nav className='header__nav nav'>
                         <button className='nav__burger burger btn-reset' onClick={() => { this.setState({ menuIsActive: true }) }}>

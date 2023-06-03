@@ -1,0 +1,19 @@
+.card {
+    &__username {
+        width: 150px;
+        text-align: center;
+        font-size: large;
+    }
+
+    &__user-link {
+        display: block;
+        height: 100%;
+        width: 150px;
+        border-radius: 5px;
+
+        &:hover {
+            background-color: rgba(220, 220, 220, 0.626);
+            color: unset;
+        }
+    }
+}

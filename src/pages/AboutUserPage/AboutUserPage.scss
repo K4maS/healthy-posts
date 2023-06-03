@@ -1,13 +1,13 @@
+$light-gray: rgba(148, 148, 148, 0.282);
+$gray: rgba(148, 148, 148, 0.812);
+
 .user {
     &__avatar {
         width: 300px;
+        border-radius: 5px;
     }
 
-    &__avatar-placeholder {
-        width: 300px;
-        height: 300px;
-        background-color: rgba(148, 148, 148, 0.282);
-    }
+
 
     &__block {
         display: flex;
@@ -15,8 +15,17 @@
     }
 
     &__text-block {
+        gap: 16px;
         display: flex;
         flex-direction: column;
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &__data {
+        margin: 0;
     }
 
     &__description {
@@ -27,18 +36,26 @@
         width: 130px;
     }
 
+    .placeholder {
+        background: linear-gradient($light-gray 5%, $gray 10%);
+        border-radius: 5px;
+        animation: placeholderGradient 0.5s linear infinite alternate;
+    }
+
+    &__avatar-placeholder {
+        width: 300px;
+        height: 300px;
+    }
+
     &__title-placeholder {
         height: 47px;
-        margin-bottom: 8px;
         width: 150px;
-        background-color: rgba(148, 148, 148, 0.282);
+
     }
 
     &__data-placeholder {
         height: 47px;
-        margin-bottom: 16px;
         width: 300px;
-        background-color: rgba(148, 148, 148, 0.282);
 
         &:nth-child(1) {
             width: 240px;
@@ -69,5 +86,52 @@
             align-self: center;
             width: 300px;
         }
+    }
+}
+
+@keyframes placeholderGradient {
+    0% {
+        background: linear-gradient($light-gray 9%, 20%, );
+    }
+
+    10% {
+        background: linear-gradient($light-gray 8%, $gray 25%, );
+    }
+
+    20% {
+        background: linear-gradient($light-gray 7%, $gray 30%, );
+    }
+
+    30% {
+        background: linear-gradient($light-gray 6%, $gray 35%, );
+    }
+
+
+    40% {
+        background: linear-gradient($light-gray 5%, $gray 40%, );
+    }
+
+    50% {
+        background: linear-gradient($light-gray 4%, $gray 45%, );
+    }
+
+    60% {
+        background: linear-gradient($light-gray 3%, $gray 55%, );
+    }
+
+    70% {
+        background: linear-gradient($light-gray 2%, $gray 60%, );
+    }
+
+    80% {
+        background: linear-gradient($light-gray 1%, $gray 65%, );
+    }
+
+    90% {
+        background: linear-gradient($light-gray 5%, rgba(148, 148, 148, 0.812) 70%, );
+    }
+
+    100% {
+        background: linear-gradient($light-gray 1%, rgba(148, 148, 148, 0.812) 75%, );
     }
 }

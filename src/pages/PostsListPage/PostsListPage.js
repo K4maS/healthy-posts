@@ -13,12 +13,7 @@ function PostsListPage() {
     const userById = (userId) => {
         return users.find((user) => user.id === userId)
     }
-    // Список постов будет загружаться при обновлении страницы 
-    if (!pageLoaded) {
-        dispath(getPosts())
-        dispath(getUsers())
-        dispath(updatePageLoaded(true))
-    }
+
     return (
 
         < section className='posts' >

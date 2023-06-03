@@ -26,23 +26,23 @@ function AboutUserPage() {
                         <img className='user__avatar' src={user.avatar} alt="avatar" />
                         <div className="user__text-block">
                             <h1 className="user__title">{user.username}</h1>
-                            <p className="user__data"><span className="user__description">ФИО</span>{user.name}</p>
-                            <p className="user__data"><span className="user__description">Почта</span>{user.email}</p>
-                            <p className="user__data"><span className="user__description">Номер телефона</span>{user.phone}</p>
-                            <p className="user__data"><span className="user__description">Сайт</span>{user.website}</p>
+                            <p className="user__data"><span className="user__description">Имя</span>{user.name}</p>
+                            <a className="user__data" href={'mailto@' + user.email}><span className="user__description">Почта</span>{user.email}</a>
+                            <a className="user__data" href={user.phone}><span className="user__description">Номер телефона</span>{user.phone}</a>
+                            <a className="user__data" href={user.website}><span className="user__description">Сайт</span>{user.website}</a>
 
                         </div>
 
                     </div>
                     :
                     <div className="user__block  mb-5">
-                        <div className='user__avatar-placeholder' />
+                        <div className='user__avatar-placeholder placeholder' />
                         <div className="user__text-block">
-                            <div className='user__title-placeholder' />
-                            <div className='user__data-placeholder' />
-                            <div className='user__data-placeholder' />
-                            <div className='user__data-placeholder' />
-                            <div className='user__data-placeholder' />
+                            <div className='user__title-placeholder placeholder' />
+                            <div className='user__data-placeholder placeholder' />
+                            <div className='user__data-placeholder placeholder' />
+                            <div className='user__data-placeholder placeholder' />
+                            <div className='user__data-placeholder placeholder' />
                         </div>
                     </div>
                 }
