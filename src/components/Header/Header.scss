@@ -29,14 +29,19 @@
     }
 
     &__search-block {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        align-items: center;
         position: relative;
         width: 100%;
+
     }
 
-    &__search-clear {
-        position: absolute;
-        right: 10px;
-        top: 0px;
+    &__search-clear,
+    &__filter {
+
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -45,36 +50,59 @@
         background-color: transparent;
         border: unset;
 
+
         svg {
             stroke: rgb(192, 192, 192);
+            fill: rgb(192, 192, 192);
+            width: 24px;
+            height: 24px;
         }
 
         &:focus {
             svg {
                 stroke: rgb(238, 238, 238);
+                fill: rgb(238, 238, 238);
             }
         }
 
         &:hover {
             svg {
                 stroke: rgb(238, 238, 238);
+                fill: rgb(238, 238, 238);
             }
         }
 
         &:active {
             svg {
                 stroke: rgb(56, 56, 56);
+                fill: rgb(94, 94, 94);
             }
         }
     }
 
+
+    &__search-clear {
+        position: absolute;
+        right: 10px;
+        top: 0px;
+    }
+
+
     &__search {
+
         background-color: #585a5d;
         border-color: #1c1d20;
+        max-width: 300px;
+        color: white;
+
+        &::placeholder {
+            color: #989ca2;
+        }
 
         &:focus {
             background-color: #585a5d;
             border-color: #8298d3;
+            color: white;
         }
     }
 

@@ -6,8 +6,9 @@ import { getPosts, getUsers, updatePageLoaded } from "../../store/toolkitSllice"
 
 
 function PostsListPage() {
+
     const dispath = useDispatch();
-    const posts = useSelector((state) => state.toolkit.posts)
+    const postsFiltered = useSelector((state) => state.toolkit.postsFiltered);
     const users = useSelector((state) => state.toolkit.users)
     const pageLoaded = useSelector((state) => state.toolkit.pageLoaded)
     const userById = (userId) => {
@@ -21,9 +22,9 @@ function PostsListPage() {
             <div className='container'>
 
                 <h1 className="posts__title">Посты</h1>
-                {posts.length > 0 ?
+                {postsFiltered.length > 0 ?
                     <div className="posts__block">
-                        {posts.map((post) => <PostsListItem user={userById(post.userId) } post={post} key={post.id} />)}
+                        {postsFiltered.map((post) => <PostsListItem user={userById(post.userId)} post={post} key={post.id} />)}
                     </div>
                     :
                     <div className="posts__block">

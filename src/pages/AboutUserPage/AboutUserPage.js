@@ -11,7 +11,7 @@ function AboutUserPage() {
     const dispath = useDispatch();
     const users = useSelector((state) => state.toolkit.users);
     const user = users.find((user) => user.id == id);
-    const posts = useSelector((state) => state.toolkit.posts);
+    const posts = useSelector((state) => state.toolkit.postsFiltered);
     const currentUserPosts = posts.filter((post) => post.userId == id);
     const pageLoaded = useSelector((state) => state.toolkit.pageLoaded);
 

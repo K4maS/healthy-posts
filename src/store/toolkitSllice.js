@@ -31,10 +31,12 @@ const toolkitSlice = createSlice({
     name: 'toolkit',
     initialState: {
         posts: [],
+        postsFiltered: [],
         comments: [],
         users: [],
         pageLoaded: false,
         commentsLoaded: false,
+        searchValue: '',
     },
     reducers: {
         // Обновление списка постов
@@ -43,6 +45,8 @@ const toolkitSlice = createSlice({
                 element.comments = false
             });
             state.posts = action.payload;
+            state.postsFiltered = state.posts;
+            state.searchValue = '';
         },
         // Обновление списка комментариев
         updateComments(state, action) {
@@ -57,20 +61,41 @@ const toolkitSlice = createSlice({
         },
         // Открытие и закрытие блока комментов для поста
         openCommentsForPost(state, action) {
-            state.posts[action.payload.index].comments = true;
+            state.postsFiltered.find((post) => post.id === action.payload.id).comments = true;
         },
         closeCommentsForPost(state, action) {
-            state.posts[action.payload.index].comments = false;
+            state.postsFiltered.find((post) => post.id === action.payload.id).comments = false;
         },
-
+        //  Проверка на первую загрузку
         updatePageLoaded(state, action) {
             state.pageLoaded = action.payload;
         },
+        // Проверка на загрузку комментариев
         updateCommentsLoaded(state, action) {
             state.commentsLoaded = action.payload;
-        }
-    }
-})
+        },
+        // Обновление данных поиска
+        updateSearching(state, action) {
+            state.searchValue = action.payload;
+            state.postsFiltered = state.posts.filter((elem) => {
+                const title = elem.title.toUpperCase()
+                const vlaue = action.payload.toUpperCase()
+                if (title.includes(vlaue)) {
+                    return elem;
+                }
+            })
+        },
+        postsSorting(state, action) {
+            if (action.payload == true) {
+                state.posts.sort((a, b) => a.title > b.title ? -1 : 1)
+            }
+            else {
+                state.posts.sort((a, b) => a.title < b.title ? -1 : 1)
+            }
+
+        },
+    },
+});
 
 // Экспорт данных для ватчера
 export const GET_POSTS = 'posts/getPosts';
@@ -90,6 +115,8 @@ export const {
     updatePageLoaded,
     updateCommentsLoaded,
     openCommentsForPost,
-    closeCommentsForPost
+    closeCommentsForPost,
+    updateSearching,
+    postsSorting,
 } = toolkitSlice.actions;
 

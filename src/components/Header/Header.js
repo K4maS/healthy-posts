@@ -1,56 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiActivity, FiX } from "react-icons/fi";
+import { BsFilterLeft } from "react-icons/bs";
 import { IconContext } from 'react-icons';
 import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
+import { useDispatch, useSelector } from 'react-redux';
+import { postsSorting, updateSearching } from '../../store/toolkitSllice';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            menuIsActive: false,
-        }
 
-        this.closeMenu = this.closeMenu.bind(this)
+function Header() {
+    const dispath = useDispatch();
+    const searchValue = useSelector((state) => state.toolkit.searchValue);
+    const [menuIsActive, setMenuIsActive] = useState(false);
+    const closeMenu = () => {
+        setMenuIsActive(false);
+    };
+    // Изменение значения поиска и поля поиска
+    const searchPocess = (e) => {
+        dispath(updateSearching(e.target.value))
+        console.log(e.target.value);
     }
+    // Удаления значения для поиска и поля для поиска
+    const clearSearchValue = () => {
+        dispath(updateSearching(''));
+    }
+    const changePostSorting = () => {
+        dispath(postsSorting(true));
+    }
+    return (
+        <header className="header" >
+            <div className='container'>
+                <IconContext.Provider value={{ color: "green", className: "header__logo", size: '2em' }}>
+                    <Link className='header__logo-link' to={'/'}>
+                        <span className="header__logo-text">Healthy</span>
+                        <FiActivity className="header__logo-image" />
+                        <span className="header__logo-text">posts</span>
+                    </Link>
 
-    render() {
-        return (
-            <header className="header" >
-                <div className='container'>
-                    <IconContext.Provider value={{ color: "green", className: "header__logo", size: '2em' }}>
-                        <Link className='header__logo-link' to={'/'}>
-                            <span className="header__logo-text">Healthy</span>
-                            <FiActivity className="header__logo-image" />
-                            <span className="header__logo-text">posts</span>
-                        </Link>
-
-                    </IconContext.Provider>
-                    <div className='header__search-block'>
-                        <input type='search' className="form-control header__search" />
-                        <button className='header__search-clear'> <FiX /></button>
-                    </div>
-
-                    {this.state.menuIsActive && <div className='header__blackout' onClick={this.closeMenu} ></div>}
-                    <nav className='header__nav nav'>
-                        <button className='nav__burger burger btn-reset' onClick={() => { this.setState({ menuIsActive: true }) }}>
-                            <span className='burger__line'></span>
-                            <span className='burger__line'></span>
-                            <span className='burger__line'></span>
-                        </button>
-
-                        {this.state.menuIsActive && <NavMenuModule onClose={this.closeMenu} />}
-                    </nav>
+                </IconContext.Provider>
+                <div className='header__search-block'>
+                    <button className='header__filter' onClick={changePostSorting}> <BsFilterLeft /></button>
+                    <input type='search' placeholder='Поиск' value={searchValue} className="form-control header__search" onInput={searchPocess} />
+                    {searchValue.length > 0 && <button className='header__search-clear' onClick={clearSearchValue}> <FiX /></button>}
                 </div>
-            </header >
-        );
-    }
 
-    closeMenu() {
-        this.setState({ menuIsActive: false })
-    }
+                {menuIsActive && <div className='header__blackout' onClick={closeMenu} ></div>}
+                <nav className='header__nav nav'>
+                    <button className='nav__burger burger btn-reset' onClick={() => { setMenuIsActive(true) }}>
+                        <span className='burger__line'></span>
+                        <span className='burger__line'></span>
+                        <span className='burger__line'></span>
+                    </button>
 
+                    {menuIsActive && <NavMenuModule onClose={closeMenu} />}
+                </nav>
+            </div>
+        </header >
+    );
 }
 
 export default Header;
