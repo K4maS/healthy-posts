@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiActivity, FiX } from "react-icons/fi";
-import { BsFilterLeft } from "react-icons/bs";
+import { ImSortAlphaAsc, ImSortAlphaDesc } from "react-icons/im";
+import { TbArrowsSort } from "react-icons/tb";
 import { IconContext } from 'react-icons';
 import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
@@ -13,6 +14,7 @@ function Header() {
     const dispath = useDispatch();
     const searchValue = useSelector((state) => state.toolkit.searchValue);
     const [menuIsActive, setMenuIsActive] = useState(false);
+    const [sortOrder, setSortOrder] = useState(undefined);
     const closeMenu = () => {
         setMenuIsActive(false);
     };
@@ -26,7 +28,11 @@ function Header() {
         dispath(updateSearching(''));
     }
     const changePostSorting = () => {
-        dispath(postsSorting(true));
+        if (sortOrder === undefined) {
+            setSortOrder(false);
+        }
+        setSortOrder(!sortOrder);
+        dispath(postsSorting(sortOrder));
     }
     return (
         <header className="header" >
@@ -40,7 +46,12 @@ function Header() {
 
                 </IconContext.Provider>
                 <div className='header__search-block'>
-                    <button className='header__filter' onClick={changePostSorting}> <BsFilterLeft /></button>
+                    <button className='header__filter' onClick={changePostSorting}>
+                        {sortOrder === undefined ? < TbArrowsSort /> :
+                            <span>
+                                {!sortOrder ? <ImSortAlphaAsc /> : <ImSortAlphaDesc />}
+                            </span>}
+                    </button>
                     <input type='search' placeholder='Поиск' value={searchValue} className="form-control header__search" onInput={searchPocess} />
                     {searchValue.length > 0 && <button className='header__search-clear' onClick={clearSearchValue}> <FiX /></button>}
                 </div>

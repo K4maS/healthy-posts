@@ -87,10 +87,10 @@ const toolkitSlice = createSlice({
         },
         postsSorting(state, action) {
             if (action.payload == true) {
-                state.posts.sort((a, b) => a.title > b.title ? -1 : 1)
+                state.postsFiltered.sort((a, b) => a.title > b.title ? 1 : -1)
             }
             else {
-                state.posts.sort((a, b) => a.title < b.title ? -1 : 1)
+                state.postsFiltered.sort((a, b) => a.title > b.title ? -1 : 1)
             }
 
         },
