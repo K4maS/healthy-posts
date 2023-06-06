@@ -7,12 +7,13 @@ import { IconContext } from 'react-icons';
 import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
 import { useDispatch, useSelector } from 'react-redux';
-import { postsSorting, updateSearching } from '../../store/toolkitSllice';
+import { pagingPosts, postsSorting, updateSearching } from '../../store/toolkitSllice';
 
 
 function Header() {
     const dispath = useDispatch();
     const searchValue = useSelector((state) => state.toolkit.searchValue);
+    const postsFiltered = useSelector(state => state.toolkit.postsFiltered);
     const [menuIsActive, setMenuIsActive] = useState(false);
     const [sortOrder, setSortOrder] = useState(undefined);
     const closeMenu = () => {
@@ -21,11 +22,12 @@ function Header() {
     // Изменение значения поиска и поля поиска
     const searchPocess = (e) => {
         dispath(updateSearching(e.target.value))
-        console.log(e.target.value);
+        // dispath(pagingPosts(postsFiltered));
     }
     // Удаления значения для поиска и поля для поиска
     const clearSearchValue = () => {
         dispath(updateSearching(''));
+        // dispath(pagingPosts(postsFiltered));
     }
     const changePostSorting = () => {
         if (sortOrder === undefined) {

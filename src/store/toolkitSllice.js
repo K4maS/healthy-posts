@@ -1,7 +1,7 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { put, call } from 'redux-saga/effects';
-import { MAIN_URL } from '../helpers/mainUrl';
+import { MAIN_URL } from '../api/mainUrl';
 
 
 // Запрос для получения постов
@@ -32,11 +32,14 @@ const toolkitSlice = createSlice({
     initialState: {
         posts: [],
         postsFiltered: [],
+        postsPaged: [],
         comments: [],
         users: [],
         pageLoaded: false,
         commentsLoaded: false,
         searchValue: '',
+        currentPage: 0,
+
     },
     reducers: {
         // Обновление списка постов
@@ -47,6 +50,7 @@ const toolkitSlice = createSlice({
             state.posts = action.payload;
             state.postsFiltered = state.posts;
             state.searchValue = '';
+            getPagedPosts(state);
         },
         // Обновление списка комментариев
         updateComments(state, action) {
@@ -62,9 +66,11 @@ const toolkitSlice = createSlice({
         // Открытие и закрытие блока комментов для поста
         openCommentsForPost(state, action) {
             state.postsFiltered.find((post) => post.id === action.payload.id).comments = true;
+            getPagedPosts(state)
         },
         closeCommentsForPost(state, action) {
             state.postsFiltered.find((post) => post.id === action.payload.id).comments = false;
+            getPagedPosts(state)
         },
         //  Проверка на первую загрузку
         updatePageLoaded(state, action) {
@@ -83,21 +89,46 @@ const toolkitSlice = createSlice({
                 if (title.includes(vlaue)) {
                     return elem;
                 }
+
             })
+            getPagedPosts(state)
+            state.currentPage = 0;
         },
+        // Сортировка постов
         postsSorting(state, action) {
-            if (action.payload == true) {
+            if (action.payload === true) {
                 state.postsFiltered.sort((a, b) => a.title > b.title ? 1 : -1)
             }
             else {
                 state.postsFiltered.sort((a, b) => a.title > b.title ? -1 : 1)
             }
-
+            getPagedPosts(state)
         },
+        updageCurrentPage(state, action) {
+            state.currentPage = action.payload;
+        }
     },
 });
 
-// Экспорт данных для ватчера
+function getPagedPosts(state) {
+    let pageCount = 10;
+    const l = state.postsFiltered.length;
+    let page = 1;
+    console.log(l)
+    state.postsPaged = [];
+    for (let i = 0; i < l; i += 1) {
+        if (i % pageCount === 0 ) {
+            state.postsPaged.push({ page, data: state.postsFiltered.slice(i, i + pageCount) });
+            page += 1;
+        }
+        // if (i === l) {
+        //     state.postsPaged.push(state.postsFiltered.slice(i - pageCount, i));
+        // }
+
+    }
+}
+
+
 export const GET_POSTS = 'posts/getPosts';
 export const getPosts = createAction(GET_POSTS);
 
@@ -109,6 +140,7 @@ export const getUsers = createAction(GET_USERS);
 
 export default toolkitSlice.reducer;
 export const {
+    pagingPosts,
     updatePosts,
     updateComments,
     updateUsers,
@@ -118,5 +150,6 @@ export const {
     closeCommentsForPost,
     updateSearching,
     postsSorting,
+    updageCurrentPage,
 } = toolkitSlice.actions;
 

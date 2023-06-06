@@ -7,12 +7,15 @@ import './PostsListItem.scss';
 
 function PostsListItem(props) {
     const dispath = useDispatch();
-    const posts = useSelector((state) => state.toolkit.posts);
+    const posts = useSelector((state) => state.toolkit.postsPaged);
+    const currentPage = useSelector((state) => state.toolkit.currentPage)
     const commentsLoaded = useSelector(state => state.toolkit.commentsLoaded);
     const getIndex = (id) => {
-        const getELem = posts.filter((elem) => elem.id === id);
-        const index = posts.indexOf(getELem[0]);
+        const getElem = posts[currentPage].data.find((elem) => elem.id === id);
+        const index = posts[currentPage].data.indexOf(getElem);
+        console.log('index', index, 'getElem', getElem, 'posts', posts)
         return index;
+
     }
     const openComments = (id) => {
         const index = getIndex(id);
