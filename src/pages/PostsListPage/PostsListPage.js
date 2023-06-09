@@ -1,14 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import React from "react";
 import PostsListItem from "../../components/PostsListItem/PostsListItem";
-import { getPosts, getUsers, updatePageLoaded } from "../../store/toolkitSllice";
 import Pagination from "../../components/Pagination/Pagination";
 import './PostsListPage.scss';
+import Spinner from "../../modules/Spinner/Spinner";
 
 
 function PostsListPage() {
-    const dispath = useDispatch();
-    const postsFiltered = useSelector((state) => state.toolkit.postsFiltered);
     const postsPaged = useSelector((state) => state.toolkit.postsPaged);
     const users = useSelector((state) => state.toolkit.users)
     const pageLoaded = useSelector((state) => state.toolkit.pageLoaded)
@@ -26,26 +24,24 @@ function PostsListPage() {
 
                 <h1 className="posts__title">Посты</h1>
 
-                {postsFiltered.length > 0 ?
+                {postsPaged.length > 0 ?
                     <div className="posts__block">
                         {postsPaged[currentPage].data.map((post) => <PostsListItem user={userById(post.userId)} post={post} key={post.id} />)}
+                        <Pagination />
                     </div>
                     :
                     <div className="posts__block">
-                        {pageLoaded === false ?
+                        {pageLoaded !== false ?
                             <div>
                                 <h2>Посты не найдены</h2>
-                                <button className="btn btn-primary" onClick={() => dispath(getPosts())}>Обновить посты</button>
                             </div>
                             :
-                            <div>
-                                <h2>Загрузка постов... Спиннер крутится</h2>
-                            </div>
+                            <Spinner />
                         }
                     </div>
 
                 }
-                <Pagination />
+
             </div>
         </section >
 

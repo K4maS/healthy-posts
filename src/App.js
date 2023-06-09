@@ -17,7 +17,7 @@ function App() {
       dispath(getPosts())
       dispath(getUsers())
       dispath(updatePageLoaded(true))
-      // dispath(pagingPosts(postsFiltered));
+
     }
   })
   return (

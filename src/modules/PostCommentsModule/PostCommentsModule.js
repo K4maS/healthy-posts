@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentsListItem from '../../components/CommentsListItem/CommentsListItem';
 import { useSelector } from 'react-redux';
+import Spinner from '../Spinner/Spinner';
 
 
 function PostCommentsModule(props) {
@@ -24,7 +25,7 @@ function PostCommentsModule(props) {
                     {commentsLoaded ?
                         <h4 className="card-title">Нет комментариев</h4>
                         :
-                        <h4 className="card-title">Загрузка...</h4>
+                        <Spinner />
                     }
 
                 </div>

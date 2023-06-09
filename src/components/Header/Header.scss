@@ -145,3 +145,24 @@
     }
 
 }
+
+@media screen and (max-width: 768px) {
+    .header {
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        &__search-block {
+            order: +1;
+            grid-area: 2/span 2;
+        }
+
+        &__search {
+            max-width: unset;
+        }
+        &__nav {
+            justify-content: flex-end;
+        }
+    }
+}

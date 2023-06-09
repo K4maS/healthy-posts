@@ -7,24 +7,52 @@ import { MAIN_URL } from '../api/mainUrl';
 // Запрос для получения постов
 const fetchPostsFromApi = () => axios.get(MAIN_URL + '/posts')
 // Запрос для получения комментариев 
-const fetchCommentsFromApi = () => axios.get(MAIN_URL + '/comments')
+const fetchCommentsFromApi = (id) => axios.get(MAIN_URL + '/comments?postId=' + id)
 // Запрос для получения юзеров 
 const fetchUsersFromApi = () => axios.get(MAIN_URL + '/users')
 
 // Сага воркер для поста
 export function* getPostsSaga() {
-    const data = yield call(fetchPostsFromApi);
-    yield put(updatePosts(data.data))
+    try {
+        const data = yield call(fetchPostsFromApi);
+        yield put(updatePosts(data.data))
+    }
+    catch (er) {
+        console.log(er)
+        updateLoadingError(true);
+    }
+    finally {
+        updateLoadingPocess(false);
+    }
 }
 // Сага воркер для комментариев
-export function* getCommentsSaga() {
-    const data = yield call(fetchCommentsFromApi);
-    yield put(updateComments(data.data))
+export function* getCommentsSaga(payload) {
+    try {
+        console.log('payload - ', payload.id)
+        const data = yield call(fetchCommentsFromApi, payload.id);
+        yield put(updateComments(data.data))
+    }
+    catch (er) {
+        console.log(er)
+        updateLoadingError(true);
+    }
+    finally {
+        updateLoadingPocess(false);
+    }
 }
 // Сага воркер для юзеров
 export function* getUsersSaga() {
-    const data = yield call(fetchUsersFromApi);
-    yield put(updateUsers(data.data))
+    try {
+        const data = yield call(fetchUsersFromApi);
+        yield put(updateUsers(data.data))
+    }
+    catch (er) {
+        console.log(er)
+        updateLoadingError(true);
+    }
+    finally {
+        updateLoadingPocess(false);
+    }
 }
 
 const toolkitSlice = createSlice({
@@ -39,9 +67,18 @@ const toolkitSlice = createSlice({
         commentsLoaded: false,
         searchValue: '',
         currentPage: 0,
-
+        loadingProcess: false,
+        loadingError: false,
     },
     reducers: {
+        updateLoadingPocess(state, action) {
+            console.log(action)
+            state.loadingProcess = action.payload;
+        },
+        updateLoadingError(state, action) {
+            console.log(action)
+            state.loadingError = action.payload;
+        },
         // Обновление списка постов
         updatePosts(state, action) {
             action.payload.forEach(element => {
@@ -54,7 +91,7 @@ const toolkitSlice = createSlice({
         },
         // Обновление списка комментариев
         updateComments(state, action) {
-            state.comments = action.payload;
+            state.comments = [...state.comments, ...action.payload];
         },
         // Обновление списка юзеров
         updateUsers(state, action) {
@@ -70,6 +107,7 @@ const toolkitSlice = createSlice({
         },
         closeCommentsForPost(state, action) {
             state.postsFiltered.find((post) => post.id === action.payload.id).comments = false;
+            state.comments = state.comments.filter((elem) => elem.postId !== action.payload.id)
             getPagedPosts(state)
         },
         //  Проверка на первую загрузку
@@ -110,20 +148,17 @@ const toolkitSlice = createSlice({
     },
 });
 
+// Разделение целого списка по страницам
 function getPagedPosts(state) {
     let pageCount = 10;
     const l = state.postsFiltered.length;
     let page = 1;
-    console.log(l)
     state.postsPaged = [];
     for (let i = 0; i < l; i += 1) {
-        if (i % pageCount === 0 ) {
+        if (i % pageCount === 0) {
             state.postsPaged.push({ page, data: state.postsFiltered.slice(i, i + pageCount) });
             page += 1;
         }
-        // if (i === l) {
-        //     state.postsPaged.push(state.postsFiltered.slice(i - pageCount, i));
-        // }
 
     }
 }
@@ -133,7 +168,7 @@ export const GET_POSTS = 'posts/getPosts';
 export const getPosts = createAction(GET_POSTS);
 
 export const GET_COMMENTS = 'posts/getComments';
-export const getComments = createAction(GET_COMMENTS);
+export const getComments = createAction((id) => { return { type: GET_COMMENTS, id } });
 
 export const GET_USERS = 'posts/getComments';
 export const getUsers = createAction(GET_USERS);
@@ -151,5 +186,7 @@ export const {
     updateSearching,
     postsSorting,
     updageCurrentPage,
+    updateLoadingPocess,
+    updateLoadingError,
 } = toolkitSlice.actions;
 

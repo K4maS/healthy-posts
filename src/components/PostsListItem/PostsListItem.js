@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import PostCommentsModule from '../../modules/PostCommentsModule/PostCommentsModule';
 import { Link } from 'react-router-dom';
-import { openCommentsForPost, getComments, closeCommentsForPost, updateCommentsLoaded, updatePageLoaded } from '../../store/toolkitSllice';
+import { openCommentsForPost, getComments, closeCommentsForPost, updateCommentsLoaded, updatePageLoaded, GET_COMMENTS } from '../../store/toolkitSllice';
 import './PostsListItem.scss';
 
 function PostsListItem(props) {
@@ -13,16 +13,15 @@ function PostsListItem(props) {
     const getIndex = (id) => {
         const getElem = posts[currentPage].data.find((elem) => elem.id === id);
         const index = posts[currentPage].data.indexOf(getElem);
-        console.log('index', index, 'getElem', getElem, 'posts', posts)
         return index;
 
     }
     const openComments = (id) => {
         const index = getIndex(id);
-        if (!commentsLoaded) {
-            dispath(getComments());
-        }
-        dispath(updateCommentsLoaded(true));
+        // if (!commentsLoaded) {
+        dispath({ type: GET_COMMENTS, id });
+        // }
+        // dispath(updateCommentsLoaded(true));
         dispath(openCommentsForPost({ id, index }));
     }
     const closeComments = (id) => {

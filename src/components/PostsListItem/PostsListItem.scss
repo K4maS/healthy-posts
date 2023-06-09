@@ -17,3 +17,20 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .card {
+        &__user-link {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        &__username {
+            display: flex;
+            justify-content: flex-start;
+        }
+    }
+}

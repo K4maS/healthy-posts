@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './AboutUserPage.scss';
 import { getPosts, getUsers, updatePageLoaded } from "../../store/toolkitSllice";
 import PostsListItem from "../../components/PostsListItem/PostsListItem";
+import Spinner from "../../modules/Spinner/Spinner";
 
 function AboutUserPage() {
     const { id } = useParams();
@@ -52,15 +53,12 @@ function AboutUserPage() {
                     </div>
                     :
                     <div className="posts__block">
-                        {pageLoaded === false ?
+                        {pageLoaded !== false ?
                             <div>
                                 <h2>Посты не найдены</h2>
-                                <button className="btn btn-primary" onClick={() => dispath(getPosts())}>Обновить посты</button>
                             </div>
                             :
-                            <div>
-                                <h2>Загрузка постов... Спиннер крутится</h2>
-                            </div>
+                            <Spinner />
                         }
                     </div>
 
