@@ -2,14 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 import PostCommentsModule from '../../modules/PostCommentsModule/PostCommentsModule';
 import { Link } from 'react-router-dom';
-import { openCommentsForPost, getComments, closeCommentsForPost, updateCommentsLoaded, updatePageLoaded, GET_COMMENTS } from '../../store/toolkitSllice';
+import { openCommentsForPost, getComments, closeCommentsForPost, updatePageLoaded, GET_COMMENTS } from '../../store/toolkitSllice';
 import './PostsListItem.scss';
 
 function PostsListItem(props) {
     const dispath = useDispatch();
     const posts = useSelector((state) => state.toolkit.postsPaged);
     const currentPage = useSelector((state) => state.toolkit.currentPage)
-    const commentsLoaded = useSelector(state => state.toolkit.commentsLoaded);
     const getIndex = (id) => {
         const getElem = posts[currentPage].data.find((elem) => elem.id === id);
         const index = posts[currentPage].data.indexOf(getElem);
@@ -18,10 +17,7 @@ function PostsListItem(props) {
     }
     const openComments = (id) => {
         const index = getIndex(id);
-        // if (!commentsLoaded) {
         dispath({ type: GET_COMMENTS, id });
-        // }
-        // dispath(updateCommentsLoaded(true));
         dispath(openCommentsForPost({ id, index }));
     }
     const closeComments = (id) => {

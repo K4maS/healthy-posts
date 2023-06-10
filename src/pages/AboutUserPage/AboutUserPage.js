@@ -1,20 +1,20 @@
 import { useParams } from "react-router";
 import BackLinkModule from "../../modules/BackLinkModule/BackLinkModule";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import './AboutUserPage.scss';
-import { getPosts, getUsers, updatePageLoaded } from "../../store/toolkitSllice";
 import PostsListItem from "../../components/PostsListItem/PostsListItem";
 import Spinner from "../../modules/Spinner/Spinner";
 
 function AboutUserPage() {
     const { id } = useParams();
     console.log(id);
-    const dispath = useDispatch();
+
     const users = useSelector((state) => state.toolkit.users);
     const user = users.find((user) => user.id == id);
     const posts = useSelector((state) => state.toolkit.postsFiltered);
     const currentUserPosts = posts.filter((post) => post.userId == id);
-    const pageLoaded = useSelector((state) => state.toolkit.pageLoaded);
+    const loadingProcess = useSelector((state) => state.toolkit.loadingProcess);
+    const loadingError = useSelector((state) => state.toolkit.loadingError);
 
 
     return (
@@ -37,14 +37,23 @@ function AboutUserPage() {
                     </div>
                     :
                     <div className="user__block  mb-5">
-                        <div className='user__avatar-placeholder placeholder' />
-                        <div className="user__text-block">
-                            <div className='user__title-placeholder placeholder' />
-                            <div className='user__data-placeholder placeholder' />
-                            <div className='user__data-placeholder placeholder' />
-                            <div className='user__data-placeholder placeholder' />
-                            <div className='user__data-placeholder placeholder' />
-                        </div>
+                        {loadingProcess &&
+                            <div className="user__block  mb-5">
+                                <div className='user__avatar-placeholder placeholder' />
+                                <div className="user__text-block">
+                                    <div className='user__title-placeholder placeholder' />
+                                    <div className='user__data-placeholder placeholder' />
+                                    <div className='user__data-placeholder placeholder' />
+                                    <div className='user__data-placeholder placeholder' />
+                                    <div className='user__data-placeholder placeholder' />
+                                </div>
+                            </div>
+                        }
+                        {loadingError &&
+                            <div className="user__error">
+                                <h1 className="user__error-text">Произошла ошибка</h1>
+                            </div>
+                        }
                     </div>
                 }
                 {currentUserPosts.length > 0 ?
@@ -53,14 +62,14 @@ function AboutUserPage() {
                     </div>
                     :
                     <div className="posts__block">
-                        {pageLoaded !== false ?
-                            <div>
-                                <h2>Посты не найдены</h2>
-                            </div>
-                            :
+                        {loadingProcess &&
                             <Spinner />
                         }
+                        {loadingError &&
+                            <h1>Произошла ошибка</h1>
+                        }
                     </div>
+
 
                 }
 

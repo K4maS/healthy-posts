@@ -8,9 +8,10 @@ import Spinner from "../../modules/Spinner/Spinner";
 
 function PostsListPage() {
     const postsPaged = useSelector((state) => state.toolkit.postsPaged);
-    const users = useSelector((state) => state.toolkit.users)
-    const pageLoaded = useSelector((state) => state.toolkit.pageLoaded)
-    const currentPage = useSelector((state) => state.toolkit.currentPage)
+    const users = useSelector((state) => state.toolkit.users);
+    const currentPage = useSelector((state) => state.toolkit.currentPage);
+    const loadingProcess = useSelector((state) => state.toolkit.loadingProcess);
+    const loadingError = useSelector((state) => state.toolkit.loadingError);
     const userById = (userId) => {
         return users.find((user) => user.id === userId)
     }
@@ -31,12 +32,11 @@ function PostsListPage() {
                     </div>
                     :
                     <div className="posts__block">
-                        {pageLoaded !== false ?
-                            <div>
-                                <h2>Посты не найдены</h2>
-                            </div>
-                            :
+                        {loadingProcess &&
                             <Spinner />
+                        }
+                        {loadingError &&
+                            <h1>Произошла ошибка</h1>
                         }
                     </div>
 

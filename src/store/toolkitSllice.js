@@ -2,7 +2,7 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { put, call } from 'redux-saga/effects';
 import { MAIN_URL } from '../api/mainUrl';
-
+import { aboutCreator } from "../api/aboutCreator";
 
 // Запрос для получения постов
 const fetchPostsFromApi = () => axios.get(MAIN_URL + '/posts')
@@ -13,45 +13,50 @@ const fetchUsersFromApi = () => axios.get(MAIN_URL + '/users')
 
 // Сага воркер для поста
 export function* getPostsSaga() {
+    yield put(updateLoadingPocess(true));
+    yield put(updateLoadingError(false));
     try {
         const data = yield call(fetchPostsFromApi);
         yield put(updatePosts(data.data))
     }
     catch (er) {
         console.log(er)
-        updateLoadingError(true);
+        yield put(updateLoadingError(true));
     }
     finally {
-        updateLoadingPocess(false);
+        yield put(updateLoadingPocess(false));
     }
 }
 // Сага воркер для комментариев
 export function* getCommentsSaga(payload) {
+    yield put(updateLoadingPocess(true));
+    yield put(updateLoadingError(false));
     try {
-        console.log('payload - ', payload.id)
         const data = yield call(fetchCommentsFromApi, payload.id);
         yield put(updateComments(data.data))
     }
     catch (er) {
         console.log(er)
-        updateLoadingError(true);
+        yield put(updateLoadingError(true));
     }
     finally {
-        updateLoadingPocess(false);
+        yield put(updateLoadingPocess(false));
     }
 }
 // Сага воркер для юзеров
 export function* getUsersSaga() {
+    yield put(updateLoadingPocess(true));
+    yield put(updateLoadingError(false));
     try {
         const data = yield call(fetchUsersFromApi);
         yield put(updateUsers(data.data))
     }
     catch (er) {
         console.log(er)
-        updateLoadingError(true);
+        yield put(updateLoadingError(true));
     }
     finally {
-        updateLoadingPocess(false);
+        yield put(updateLoadingPocess(false));
     }
 }
 
@@ -64,19 +69,19 @@ const toolkitSlice = createSlice({
         comments: [],
         users: [],
         pageLoaded: false,
-        commentsLoaded: false,
         searchValue: '',
         currentPage: 0,
         loadingProcess: false,
         loadingError: false,
+        aboutCreator,
     },
     reducers: {
+        // Изменение статуса загрузки
         updateLoadingPocess(state, action) {
-            console.log(action)
             state.loadingProcess = action.payload;
         },
+        // Изменение статуса ошибки
         updateLoadingError(state, action) {
-            console.log(action)
             state.loadingError = action.payload;
         },
         // Обновление списка постов
