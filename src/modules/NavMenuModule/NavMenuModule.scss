@@ -31,6 +31,23 @@
                 color: rgba(0, 128, 0, 0.834);
             }
         }
+
+        .creator-block {}
+
+        &__avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+        }
+
+        &__email-link {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            font-size: 15px;
+        }
     }
 
     &__close {
@@ -38,4 +55,6 @@
         right: 5%;
         top: 5%;
     }
+
+
 }

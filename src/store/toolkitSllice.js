@@ -68,14 +68,19 @@ const toolkitSlice = createSlice({
         postsPaged: [],
         comments: [],
         users: [],
-        pageLoaded: false,
         searchValue: '',
         currentPage: 0,
+        aboutCreator,
+        pageLoaded: false,
         loadingProcess: false,
         loadingError: false,
-        aboutCreator,
+        menuIsActive: false,
     },
     reducers: {
+        // Изменение статуса меню
+        updateMenuIsActive(state, action) {
+            state.menuIsActive = action.payload;
+        },
         // Изменение статуса загрузки
         updateLoadingPocess(state, action) {
             state.loadingProcess = action.payload;
@@ -193,5 +198,6 @@ export const {
     updageCurrentPage,
     updateLoadingPocess,
     updateLoadingError,
+    updateMenuIsActive,
 } = toolkitSlice.actions;
 

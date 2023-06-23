@@ -1,0 +1,29 @@
+.card__username {
+  width: 150px;
+  text-align: center;
+  font-size: large;
+}
+.card__user-link {
+  display: block;
+  height: 100%;
+  width: 150px;
+  border-radius: 5px;
+}
+.card__user-link:hover {
+  background-color: rgba(220, 220, 220, 0.626);
+  color: unset;
+}
+
+@media screen and (max-width: 768px) {
+  .card__user-link {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+  .card__username {
+    display: flex;
+    justify-content: flex-start;
+  }
+}/*# sourceMappingURL=PostsListItem.css.map */

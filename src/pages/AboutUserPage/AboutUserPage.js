@@ -28,9 +28,9 @@ function AboutUserPage() {
                         <div className="user__text-block">
                             <h1 className="user__title">{user.username}</h1>
                             <p className="user__data"><span className="user__description">Имя</span>{user.name}</p>
-                            <a className="user__data" href={'mailto@' + user.email}><span className="user__description">Почта</span>{user.email}</a>
-                            <a className="user__data" href={user.phone}><span className="user__description">Номер телефона</span>{user.phone}</a>
-                            <a className="user__data" href={user.website}><span className="user__description">Сайт</span>{user.website}</a>
+                            <a className="user__data" href={'mailto:' + user.email}><span className="user__description">Почта</span>{user.email}</a>
+                            <a className="user__data" href={'tel:' + user.phone}><span className="user__description">Номер телефона</span>{user.phone}</a>
+                            <a className="user__data" href={'http://' + user.website}><span className="user__description">Сайт</span>{user.website}</a>
 
                         </div>
 

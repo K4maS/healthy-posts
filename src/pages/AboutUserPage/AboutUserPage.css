@@ -1,0 +1,99 @@
+.user__avatar {
+  width: 300px;
+  border-radius: 5px;
+}
+.user__block {
+  display: flex;
+  gap: 30px;
+}
+.user__text-block {
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.user__title {
+  margin: 0;
+}
+.user__data {
+  margin: 0;
+}
+.user__description {
+  display: block;
+  font-weight: 600;
+  color: gray;
+  width: 130px;
+}
+.user .placeholder {
+  background: linear-gradient(rgba(148, 148, 148, 0.282) 5%, rgba(148, 148, 148, 0.812) 10%);
+  border-radius: 5px;
+  animation: placeholderGradient 0.5s linear infinite alternate;
+}
+.user__avatar-placeholder {
+  width: 300px;
+  height: 300px;
+}
+.user__title-placeholder {
+  height: 47px;
+  width: 150px;
+}
+.user__data-placeholder {
+  height: 47px;
+  width: 300px;
+}
+.user__data-placeholder:nth-child(1) {
+  width: 240px;
+}
+.user__data-placeholder:nth-child(2) {
+  width: 250px;
+}
+.user__data-placeholder:nth-child(4) {
+  width: 200px;
+}
+
+@media (max-width: 768px) {
+  .user__avatar {
+    align-self: center;
+  }
+  .user__block {
+    flex-direction: column;
+  }
+  .user__text-block {
+    align-self: center;
+    width: 300px;
+  }
+}
+@keyframes placeholderGradient {
+  0% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 9%, 20%);
+  }
+  10% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 8%, rgba(148, 148, 148, 0.812) 25%);
+  }
+  20% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 7%, rgba(148, 148, 148, 0.812) 30%);
+  }
+  30% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 6%, rgba(148, 148, 148, 0.812) 35%);
+  }
+  40% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 5%, rgba(148, 148, 148, 0.812) 40%);
+  }
+  50% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 4%, rgba(148, 148, 148, 0.812) 45%);
+  }
+  60% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 3%, rgba(148, 148, 148, 0.812) 55%);
+  }
+  70% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 2%, rgba(148, 148, 148, 0.812) 60%);
+  }
+  80% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 1%, rgba(148, 148, 148, 0.812) 65%);
+  }
+  90% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 5%, rgba(148, 148, 148, 0.812) 70%);
+  }
+  100% {
+    background: linear-gradient(rgba(148, 148, 148, 0.282) 1%, rgba(148, 148, 148, 0.812) 75%);
+  }
+}/*# sourceMappingURL=AboutUserPage.css.map */

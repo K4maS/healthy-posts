@@ -7,27 +7,25 @@ import { IconContext } from 'react-icons';
 import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
 import { useDispatch, useSelector } from 'react-redux';
-import { pagingPosts, postsSorting, updateSearching } from '../../store/toolkitSllice';
+import { postsSorting, updateMenuIsActive, updateSearching } from '../../store/toolkitSllice';
 
 
 function Header() {
     const dispath = useDispatch();
     const searchValue = useSelector((state) => state.toolkit.searchValue);
-    const postsFiltered = useSelector(state => state.toolkit.postsFiltered);
-    const [menuIsActive, setMenuIsActive] = useState(false);
+    const [SearchIsActive, setSearchIsActive] = useState(true);
     const [sortOrder, setSortOrder] = useState(undefined);
-    const closeMenu = () => {
-        setMenuIsActive(false);
+    const menuIsActive = useSelector((state) => state.toolkit.menuIsActive);
+    const changeMenuStatus = (value) => {
+        dispath(updateMenuIsActive(value));
     };
     // Изменение значения поиска и поля поиска
     const searchPocess = (e) => {
         dispath(updateSearching(e.target.value))
-        // dispath(pagingPosts(postsFiltered));
     }
     // Удаления значения для поиска и поля для поиска
     const clearSearchValue = () => {
         dispath(updateSearching(''));
-        // dispath(pagingPosts(postsFiltered));
     }
     const changePostSorting = () => {
         if (sortOrder === undefined) {
@@ -47,26 +45,29 @@ function Header() {
                     </Link>
 
                 </IconContext.Provider>
-                <div className='header__search-block'>
-                    <button className='header__filter' onClick={changePostSorting}>
-                        {sortOrder === undefined ? < TbArrowsSort /> :
-                            <span>
-                                {!sortOrder ? <ImSortAlphaAsc /> : <ImSortAlphaDesc />}
-                            </span>}
-                    </button>
-                    <input type='search' placeholder='Поиск' value={searchValue} className="form-control header__search" onInput={searchPocess} />
-                    {searchValue.length > 0 && <button className='header__search-clear' onClick={clearSearchValue}> <FiX /></button>}
-                </div>
+                {SearchIsActive &&
+                    <div className='header__search-block'>
 
-                {menuIsActive && <div className='header__blackout' onClick={closeMenu} ></div>}
+                        <button className='header__filter' onClick={changePostSorting}>
+                            {sortOrder === undefined ? < TbArrowsSort /> :
+                                <span>
+                                    {!sortOrder ? <ImSortAlphaAsc /> : <ImSortAlphaDesc />}
+                                </span>}
+                        </button>
+
+                        <input type='search' placeholder='Поиск' value={searchValue} className="form-control header__search" onInput={searchPocess} />
+                        {searchValue.length > 0 && <button className='header__search-clear' onClick={clearSearchValue}> <FiX /></button>}
+                    </div>
+                }
+                {menuIsActive && <div className='header__blackout' onClick={() => { changeMenuStatus(false) }} ></div>}
                 <nav className='header__nav nav'>
-                    <button className='nav__burger burger btn-reset' onClick={() => { setMenuIsActive(true) }}>
+                    <button className='nav__burger burger btn-reset' onClick={() => { changeMenuStatus(true) }}>
                         <span className='burger__line'></span>
                         <span className='burger__line'></span>
                         <span className='burger__line'></span>
                     </button>
 
-                    {menuIsActive && <NavMenuModule onClose={closeMenu} />}
+                    {menuIsActive && <NavMenuModule />}
                 </nav>
             </div>
         </header >

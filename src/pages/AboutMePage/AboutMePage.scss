@@ -1,7 +1,7 @@
 $light-gray: rgba(148, 148, 148, 0.282);
 $gray: rgba(148, 148, 148, 0.812);
 
-.user {
+.me {
     &__avatar {
         width: 300px;
         border-radius: 5px;
@@ -10,7 +10,8 @@ $gray: rgba(148, 148, 148, 0.812);
 
 
     &__block {
-        display: flex;
+        display: grid;
+        grid-template-columns: 300px 1fr;
         gap: 30px;
     }
 
@@ -70,15 +71,32 @@ $gray: rgba(148, 148, 148, 0.812);
         }
     }
 
+    &__block-bottom {
+        grid-area: 2/span 2;
+    }
+    &__skills-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    &__item {
+        
+        padding: 3px 15px;
+        border-radius: 19px;
+        font-weight: 700;
+        background: rgba(128, 128, 128, 0.552);
+    }
+
 }
 
 @media (max-width: 768px) {
-    .user {
+    .me {
         &__avatar {
             align-self: flex-start;
         }
 
         &__block {
+            display: flex;
             flex-direction: column;
         }
 

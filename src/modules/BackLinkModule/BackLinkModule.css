@@ -1,0 +1,10 @@
+.back-btn-link {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.back-btn-icon {
+  margin-bottom: 4px;
+  margin-right: 3px;
+}/*# sourceMappingURL=BackLinkModule.css.map */
