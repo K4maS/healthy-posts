@@ -8,6 +8,7 @@ import './Header.scss';
 import NavMenuModule from '../../modules/NavMenuModule/NavMenuModule';
 import { useDispatch, useSelector } from 'react-redux';
 import { postsSorting, updateMenuIsActive, updateSearching } from '../../store/toolkitSllice';
+import { mainPath } from '../../api/paths';
 
 
 function Header() {
@@ -38,7 +39,7 @@ function Header() {
         <header className="header" >
             <div className='container'>
                 <IconContext.Provider value={{ color: "green", className: "header__logo", size: '2em' }}>
-                    <Link className='header__logo-link' to={'/'}>
+                    <Link className='header__logo-link' to={mainPath}>
                         <span className="header__logo-text">Healthy</span>
                         <FiActivity className="header__logo-image" />
                         <span className="header__logo-text">posts</span>

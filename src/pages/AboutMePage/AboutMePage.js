@@ -1,12 +1,13 @@
 import { useSelector } from "react-redux";
 import './AboutMePage.scss';
 import BackLinkModule from "../../modules/BackLinkModule/BackLinkModule";
+import { mainPath } from "../../api/paths";
 function AboutMePage() {
     const aboutCreator = useSelector((state) => state.toolkit.aboutCreator);
     return (
         <section className='about-me'>
             <div className='container'>
-                <BackLinkModule link={'/'} text={'На главную'} />
+                <BackLinkModule link={mainPath} text={'На главную'} />
                 <h1 className="about-me__title">About creator</h1>
                 {aboutCreator &&
                     <div className="me__block mb-5">

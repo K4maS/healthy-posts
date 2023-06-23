@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import './AboutUserPage.scss';
 import PostsListItem from "../../components/PostsListItem/PostsListItem";
 import Spinner from "../../modules/Spinner/Spinner";
+import { mainPath } from "../../api/paths";
 
 function AboutUserPage() {
     const { id } = useParams();
@@ -21,7 +22,7 @@ function AboutUserPage() {
         <section className='user'>
             <div className='container'>
 
-                <BackLinkModule user link={'/'} text={'На главную'} />
+                <BackLinkModule user link={mainPath} text={'На главную'} />
                 {user ?
                     <div className="user__block mb-5">
                         <img className='user__avatar' src={user.avatar} alt="avatar" />

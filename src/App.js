@@ -7,6 +7,7 @@ import AboutMePage from './pages/AboutMePage/AboutMePage';
 import { getPosts, getUsers, pagingPosts, updatePageLoaded } from "./store/toolkitSllice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { aboutMePath, mainPath, userPath } from './api/paths';
 function App() {
   const dispath = useDispatch();
   // Список постов будет загружаться при обновлении страницы 
@@ -24,9 +25,9 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path='/' element={<PostsListPage />} />
-        <Route path='/user/:id' element={<AboutUserPage />} />
-        <Route path='/about-me' element={<AboutMePage />} />
+        <Route path={mainPath} element={<PostsListPage />} />
+        <Route path={`${userPath}/:id`} element={<AboutUserPage />} />
+        <Route path={aboutMePath} element={<AboutMePage />} />
       </Routes>
     </div>
   );
