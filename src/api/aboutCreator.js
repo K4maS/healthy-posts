@@ -14,5 +14,5 @@ export const aboutCreator = {
         startData: '',
         endData: '',
     }],
-    skills: ['Vue', 'React', 'JS', 'html', 'css', 'Webpack', 'Bootstrap', 'axios'],
+    skills: ['Vue', 'React', 'JS', 'html', 'css', 'Webpack', 'Bootstrap', 'axios', 'redux-saga', 'sass'],
 };
