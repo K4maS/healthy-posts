@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/healthy-posts/static/css/main.1bef4780.css",
+    "main.js": "/healthy-posts/static/js/main.b78e6887.js",
+    "static/js/787.559002c8.chunk.js": "/healthy-posts/static/js/787.559002c8.chunk.js",
+    "static/media/my-photo.jpg": "/healthy-posts/static/media/my-photo.44bdfec1e08787aec54f.jpg",
+    "index.html": "/healthy-posts/index.html",
+    "main.1bef4780.css.map": "/healthy-posts/static/css/main.1bef4780.css.map",
+    "main.b78e6887.js.map": "/healthy-posts/static/js/main.b78e6887.js.map",
+    "787.559002c8.chunk.js.map": "/healthy-posts/static/js/787.559002c8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1bef4780.css",
+    "static/js/main.b78e6887.js"
+  ]
+}
