@@ -1,4 +1,4 @@
-export const publicPath = '/posts-test-mitrasoft';
+export const publicPath = '/healthy-posts';
 
 export const mainPath = publicPath + '/';
 export const userPath = publicPath + '/user';

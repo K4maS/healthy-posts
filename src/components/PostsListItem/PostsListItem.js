@@ -4,6 +4,7 @@ import PostCommentsModule from '../../modules/PostCommentsModule/PostCommentsMod
 import { Link } from 'react-router-dom';
 import { openCommentsForPost, getComments, closeCommentsForPost, updatePageLoaded, GET_COMMENTS } from '../../store/toolkitSllice';
 import './PostsListItem.scss';
+import { userPath } from '../../api/paths';
 
 function PostsListItem(props) {
     const dispath = useDispatch();
@@ -30,7 +31,7 @@ function PostsListItem(props) {
             <div className="row g-0">
                 <div className="col-md-3 col-lg-2">
                     {props.user &&
-                        <Link className='card__user-link' to={`/user/${props.post.userId}`}
+                        <Link className='card__user-link' to={userPath + '/' + props.post.userId}
                             onClick={() => {
                                 dispath(updatePageLoaded(false));
                                 window.scrollTo({

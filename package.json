@@ -30,6 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://k4mas.github.io/healthy-posts/",
   "eslintConfig": {
     "extends": [
       "react-app",
